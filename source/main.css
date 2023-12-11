@@ -1,0 +1,79 @@
+/* 
+    Copyright (c) 2023, Obovoid
+    All rights reserved.
+
+    This source code is licensed under the GPL-3.0-style license found in the
+    LICENSE file in the root directory of this source tree.
+*/
+
+@font-face {
+    font-family: Aamiya-regular;
+    src: url(./fonts/Aamiya-Regular.otf);
+}
+
+@font-face {
+    font-family: Aamiya-thin;
+    src: url(./fonts/Aamiya-Thin.otf);
+}
+
+.container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    height: 100%;
+    translate: -50% -50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.break {
+    flex-basis: 100%;
+    height: 0;
+}
+
+.project-loader {
+    width: 70vw;
+    height: 40vw;
+    border: 1px solid black;
+    border-radius: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4vw;
+    flex-wrap: wrap;
+}
+
+.actionContainer {
+    position: relative;
+    width: 10vw;
+    height: 10vw;
+    border: 2px solid black;
+    border-radius: 4px 8px 4px 8px;
+    bottom: 10vw;
+
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.actionContainer:hover {
+    transition: 0.5s;
+    opacity: 0.9;
+}
+
+div .glyphicon {
+    font-size: 6vw;
+}
+
+.project-title {
+    position: relative;
+    font-size: 4vw;
+    top: 5vw;
+    font-family: Aamiya-regular;
+    font-weight: bold;
+    text-wrap: nowrap;
+}

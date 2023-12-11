@@ -1,0 +1,24 @@
+{
+  "name": "obostory",
+  "version": "1.0.0",
+  "description": "Create a key point based story, with timelines, profiles, character Inventory Planning and much more",
+  "main": "./source/main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "obostory"
+  },
+  "keywords": [
+    "story",
+    "profiles",
+    "characters",
+    "create"
+  ],
+  "author": "obovoid",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "electron": "^28.0.0"
+  }
+}
