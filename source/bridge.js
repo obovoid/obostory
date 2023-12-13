@@ -6,7 +6,15 @@
     LICENSE file in the root directory of this source tree.
 */
 
+const { ipcRenderer, contextBridge } = require('electron/renderer')
 
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip()
+// Enabled access in the renderer.js file to window.API
+contextBridge.exposeInMainWorld('API', {
+    quit: userQuit
 })
+
+function userQuit() {
+    // ipcRenderer.send, is basicly a trigger of an event without expecting to get a value back
+    // ipcRenderer.invoke is used for sending and receiving values back. ( .invoke('name', arg).then((res) => {}) )
+    ipcRenderer.send('quit');
+}
