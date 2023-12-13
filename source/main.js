@@ -6,7 +6,7 @@
     LICENSE file in the root directory of this source tree.
 */
 
-const {app, BrowserWindow} = require('electron');
+const {app, BrowserWindow, ipcMain} = require('electron');
 const path = require('node:path');
 const {crashReporter} = require('electron');
 
@@ -25,7 +25,9 @@ const WINDOW = () => {
         width: 800,
         height: 600,
         webPreferences: {
-            preload: path.join(__dirname, 'bridge.js')
+            preload: path.join(__dirname, 'bridge.js'),
+            nodeIntegration: false,
+            contextIsolation: true
         }
     });
 
@@ -47,4 +49,11 @@ app.whenReady().then(() => {
 // close app if all windows are closed
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit();
+})
+
+// .on is used for handling events without expectation to send a value back
+// .handle is used to send values back with return
+ipcMain.on('quit', () => {
+    console.log('process has been stopped by the user')
+    app.quit();
 })
