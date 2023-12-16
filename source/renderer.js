@@ -1,6 +1,19 @@
+let currentPage = 'container-startup'
+
 function app(cb) {
     if (window.API) return cb()
     return null
+}
+
+const openSettings = () => {
+    $(`.${currentPage}`).fadeOut(150);
+    $('.container-settings').css({display: 'block'})
+    $('.container-settings').animate({left: "50%", opacity: 1});
+    currentPage = 'container-settings'
+}
+
+const unloadSettings = () => {
+    $('.container-settings').animate({left: "150%", opacity: 0});
 }
 
 app(() => {
@@ -19,6 +32,34 @@ app(() => {
     });
 });
 
+document.querySelectorAll('[data-command="settings"]').forEach(el => {
+    el.addEventListener('click', openSettings);
+});
+
+function loadNewPage(page) {
+    $(`.${currentPage}`).fadeOut(150);
+    console.log(page)
+    if (page == 'container-settings') return openSettings();
+
+    $(`.${page}`).fadeIn(150);
+    currentPage = page
+}
+
+document.querySelectorAll('[data-href]').forEach(el => {
+    el.addEventListener('click', () => {
+        const linkto = el.dataset.href
+        const div = document.getElementsByClassName(linkto)
+
+        if (currentPage == 'container-settings') {
+            unloadSettings();
+        }
+
+        div.length > 0 ? 
+            loadNewPage(linkto) : 
+            console.error(new Error(`nable to load page. Link could not be converted to a div containing the link as a class.`));
+    });
+})
+
 document.querySelectorAll('[data-translate]').forEach(el => {
     const translation_id = el.dataset.translate
     let default_language = navigator.language
@@ -27,4 +68,16 @@ document.querySelectorAll('[data-translate]').forEach(el => {
     }
 
     el.innerText = language[default_language][translation_id] || `translation missing {${translation_id}}`
-})
+});
+
+//** Debug Start */
+function _reset() {
+    $(`.container-startup`).fadeIn(150);
+    $('.container-settings').animate({left: "150%", opacity: 0});
+}
+
+setTimeout(() => {
+    _reset()
+}, 500);
+
+//** Debug End */

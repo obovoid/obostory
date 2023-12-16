@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OboStory</title>
+    <title data-translate="window_title"></title>
     <script src="./dependencies/jquery-3.7.1.min.js"></script>
     <script src="./dependencies/popper.min.js"></script>
     <link rel="stylesheet" href="./dependencies/bootstrap.min.css">
@@ -21,26 +21,48 @@
     <script src="renderer.js" defer></script>
 </head>
 <body>
-    <div class="container">
+    <div class="container-startup">
         <div class="project-loader">
-            <span class="project-title" data-translate="project_startup_title">Select an Action</span>
+            <span class="project-title" data-translate="project_startup_title"></span>
             <div class="break"></div>
-            <div class="btn btn-info actionContainer" data-toggle="tooltip" data-placement="bottom" type="button" data-command="load">
+            <div class="btn btn-info actionContainer" data-toggle="tooltip" data-command="load">
                 <span class="glyphicon glyphicon-time"></span>
                 <div class="hint" data-translate="hint_recent_projects"></div>
             </div>
-            <div class="btn btn-primary actionContainer" data-toggle="tooltip" data-placement="bottom" type="button" data-command="create">
+            <div class="btn btn-primary actionContainer" data-toggle="tooltip" data-command="create">
                 <span class="glyphicon glyphicon-file"></span>
                 <div class="hint" data-translate="hint_create_project"></div>
             </div>
-            <div class="btn btn-primary actionContainer" data-toggle="tooltip" data-placement="bottom" type="button" data-command="settings">
+            <div class="btn btn-primary actionContainer" data-toggle="tooltip" data-href="container-settings">
                 <span class="glyphicon glyphicon-cog"></span>
                 <div class="hint" data-translate="hint_goto_settings"></div>
             </div>
-            <div class="btn btn-danger actionContainer" data-toggle="tooltip" data-placement="bottom" type="button" data-command="quit">
+            <div class="btn btn-danger actionContainer" data-toggle="tooltip" data-command="quit">
                 <span class="glyphicon glyphicon-log-out"></span>
                 <div class="hint" data-translate="hint_close_application"></div>
             </div>
+        </div>
+    </div>
+    <div class="container-settings">
+        <div class="settings-loader">
+            <div class="textarea">
+                <span class="glyphicon glyphicon-cog" data-glyphiconpage data-href="container-startup"></span>
+                <div class="settings-title" data-translate="settings_startup_title"></div>
+            </div>
+            <div class="setting-box">
+                <p class="settings-title-text">Lorem ipsum dolor</p>
+                <div class="breakline"></div>
+                <p class="settings-descriptions-text">
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit deleniti numquam omnis, et, facilis enim aliquam mollitia totam ratione culpa libero sint aut quibusdam pariatur velit voluptate repellat eaque unde? Voluptatem cum eaque veritatis, dolorem animi ab rem? Minus eos laboriosam voluptatem placeat maxime ratione vitae sed atque aliquid repudiandae.
+                </p>
+                <div class="form-check form-switch settings-set">
+                    <input class="form-check-input" type="checkbox" role="switch" id="LoremSwitch" data-scale="big" checked>
+                </div>
+            </div>
+            <div class="setting-box"></div>
+            <div class="setting-box"></div>
+            <div class="setting-box"></div>
+            <div class="setting-box"></div>
         </div>
     </div>
 </body>
