@@ -5,17 +5,6 @@ function app(cb) {
     return null
 }
 
-const openSettings = () => {
-    $(`.${currentPage}`).fadeOut(150);
-    $('.container-settings').css({display: 'block'})
-    $('.container-settings').animate({left: "50%", opacity: 1});
-    currentPage = 'container-settings'
-}
-
-const unloadSettings = () => {
-    $('.container-settings').animate({left: "150%", opacity: 0});
-}
-
 app(() => {
     // app() ensures that the ran code only executes if its run in the electron app.
     // Otherwise this code will never execute

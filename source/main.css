@@ -8,6 +8,9 @@
 
 :root {
     --default-background: #212529;
+    --black: #0a0a0a;
+    --grey: #ccc;
+    --white: #FFFFFF;
 }
 
 @font-face {
@@ -74,6 +77,11 @@ body {
     translate: -50% -50%;
     border: 1px solid black;
     border-radius: 5px;
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+    width: 0;
 }
 
 .actionContainer {
@@ -115,7 +123,7 @@ div .glyphicon {
 .hint {
     position: absolute;
     bottom: -7vw;
-    color: #FFFFFF;
+    color: var(--white);
     left: 50%;
     padding: 1vw;
     font-size: 1.5vw;
@@ -142,7 +150,29 @@ div .glyphicon {
     border-radius: 8px;
     margin: 0.1vw 0vw;
     padding: 1vw;
-    translate: -50% 0%
+    translate: -50% 0%;
+}
+
+.category {
+    position: relative;
+    width: 69vw;
+    height: 5vw;
+    border-radius: 0.5vw;
+    top: 1vw;
+    left: 50%;
+    background: var(--black);
+    translate: -50% 0%;
+}
+
+.category-title {
+    position: relative;
+    font-family: Aamiya-regular;
+    font-size: 1vw;
+    font-weight: bold;
+    color: var(--white);
+    top: 50%;
+    letter-spacing: 0.1vw;
+    translate: 1% -50%;
 }
 
 .textarea {
@@ -169,7 +199,7 @@ div .glyphicon {
 
 .settings-title-text {
     font-family: Aamiya-regular;
-    color: #FFFFFF;
+    color: var(--white);
     font-size: 1.2vw;
     font-weight: 400;
     letter-spacing: 0.2vw;
@@ -179,7 +209,7 @@ div .glyphicon {
 
 .settings-descriptions-text {
     font-family: Aamiya-thin;
-    color: #FFFFFF;
+    color: var(--white);
     font-size: 1vw;
     font-weight: bold;
     letter-spacing: 0.1vw;
@@ -195,12 +225,72 @@ div .glyphicon {
     margin: 1vw 0vw
 }
 
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 6vw;
+    height: 3vw;
+}
+
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 4vw;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 2vw;
+    width: 2vw;
+    left: 0.5vw;
+    top: 50%;
+    background-color: var(--white);
+    -webkit-transition: .4s;
+    transition: .4s;
+    translate: 0% -50%;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;    
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(3vw);
+    -ms-transform: translateX(3vw);
+    transform: translateX(3vw);
+}
+
 .settings-set {
     position: absolute;
     left: 0%;
     top: 50%;
+    height: 3vw;
     margin: 0vw 90%;
     translate: -50% -50%;
+}
+
+.top {
+    top: 30%;
 }
 
 [data-scale="small"] {
@@ -221,4 +311,17 @@ div .glyphicon {
 [data-scale="large"] {
     width: 5vw;
     height: 5vw;
+}
+
+select,
+option {
+    border: 0;
+    border-radius: 0.5vw;
+    outline: 0;
+    background-color: var(--white);
+    padding: 1vw;
+    font-family: Aamiya-regular;
+    font-weight: bold;
+    font-size: 1vw;
+    letter-spacing: 0.1vw;
 }
