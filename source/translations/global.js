@@ -1,11 +1,11 @@
 const language = {
     "en-US": {
-        window_title: "OboStory",
-        project_startup_title: "select an action",
-        hint_recent_projects: "open your recent projects",
-        hint_create_project: "create a new project",
-        hint_goto_settings: "change the application settings",
-        hint_close_application: "close this application",
-        settings_startup_title: "settings"
+        "window.title": "OboStory",
+        "renderer.modal.header": "select an action",
+        "hints.modal.recent.projects": "open your recent projects",
+        "hints.modal.create.project": "create a new project",
+        "hints.modal.settings": "change the application settings",
+        "hints.close.application": "close this application",
+        "settings.header": "settings"
     }
 }
