@@ -49,6 +49,25 @@ document.querySelectorAll('[data-href]').forEach(el => {
     });
 })
 
+document.querySelectorAll('[data-collapse]').forEach(el => {
+    const collapse_element = el.dataset.collapse
+    el.addEventListener('click', (e) => {
+        // TODO: Glyphy needs work
+        const glyphy = e.target.nextElementSibling
+        const replace_glyph = glyphy.dataset?.glyphtoggle
+        if (replace_glyph) {
+            const last_glyph = String(glyphy.classList)
+            glyphy.classList = replace_glyph
+            glyphy.dataset.glyphtoggle = last_glyph
+        }
+
+        document.querySelectorAll(collapse_element).forEach(tocollapse => {
+            const new_visibility = tocollapse.style.display == "none" ? 'block' : 'none'
+            tocollapse.style.display = new_visibility
+        });
+    })
+})
+
 document.querySelectorAll('[data-translate]').forEach(el => {
     const translation_id = el.dataset.translate
     let default_language = navigator.language
