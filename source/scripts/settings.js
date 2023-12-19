@@ -72,7 +72,7 @@ class Setting {
         this.options = array;
     }
     render() {
-        const list = document.querySelector('[data-settings-list]');
+        const list = document.querySelector(`[data-settings-category="${this.category}"]`);
         switch(this.type) {
             case 'switch':
                 {
@@ -132,7 +132,6 @@ class Setting {
                     interaction.id = 'select'
 
                     this.options.forEach(option => {
-                        console.log(option)
                         const interaction_option = document.createElement('option');
                         interaction_option.innerText = option
                         interaction.appendChild(interaction_option);
@@ -154,4 +153,5 @@ const a = new Setting('selection');
 a.setTitle('Testing stuff');
 a.setDescription('Turn this switch dude!');
 a.setOptions(['Lorem', 'ipsum', 'dolor', 'sit', 'amit'])
+a.setCategory('general')
 a.render();

@@ -49,35 +49,26 @@
                 <span class="glyphicon glyphicon-cog" data-glyphiconpage data-href="container-startup"></span>
                 <div class="settings-title" data-translate="settings.header"></div>
             </div>
-            <div data-settings-list>
-                <div class="category"><p class="category-title">Category Title</p></div>
-                <div class="setting-box">
-                    <p class="settings-title-text">Lorem ipsum dolor</p>
-                    <div class="breakline"></div>
-                    <p class="settings-descriptions-text">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit deleniti numquam omnis, et, facilis enim aliquam mollitia totam ratione culpa libero sint aut quibusdam pariatur velit voluptate repellat eaque unde? Voluptatem cum eaque veritatis, dolorem animi ab rem? Minus eos laboriosam voluptatem placeat maxime ratione vitae sed atque aliquid repudiandae.
-                    </p>
-                    <label class="switch settings-set">
-                        <input type="checkbox" checked>
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <div class="setting-box">
-                    <p class="settings-title-text">Lorem ipsum dolor 2</p>
-                    <div class="breakline"></div>
-                    <p class="settings-descriptions-text">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit deleniti numquam omnis, et, facilis enim aliquam mollitia totam ratione culpa libero sint aut quibusdam pariatur velit voluptate repellat eaque unde? Voluptatem cum eaque veritatis, dolorem animi ab rem? Minus eos laboriosam voluptatem placeat maxime ratione vitae sed atque aliquid repudiandae.
-                    </p>
-                    <select id="select" class="settings-set top">
-                        <option>lorem</option>
-                        <option>ipsum</option>
-                        <option>dolor</option>
-                        <option>sit</option>
-                        <option>amit</option>
-                        <option>consectetur</option>
-                    </select>
-                </div>
+            <div class="category" data-collapse='[data-settings-category="general"]'>
+                <p class="category-title" data-translate="settings.categories.general"></p>
+                <span class="glyphicon glyphicon-chevron-up glyph-category" data-glyphtoggle="glyphicon glyphicon-chevron-down glyph-category"></span>
             </div>
+            <div data-settings-category="general"></div>
+            <div class="category" data-collapse="[data-settings-category='timeline']">
+                <p class="category-title" data-translate="settings.categories.timeline"></p>
+                <span class="glyphicon glyphicon-chevron-up glyph-category" data-glyphtoggle="glyphicon glyphicon-chevron-down glyph-category"></span>
+            </div>
+            <div data-settings-category="timeline"></div>
+            <div class="category" data-collapse="[data-settings-category='profiles']">
+                <p class="category-title" data-translate="settings.categories.profiles"></p>
+                <span class="glyphicon glyphicon-chevron-up glyph-category" data-glyphtoggle="glyphicon glyphicon-chevron-down glyph-category"></span>
+            </div>
+            <div data-settings-category="profiles"></div>
+            <div class="category" data-collapse="[data-settings-category='fonts']">
+                <p class="category-title" data-translate="settings.categories.fonts"></p>
+                <span class="glyphicon glyphicon-chevron-up glyph-category" data-glyphtoggle="glyphicon glyphicon-chevron-down glyph-category"></span>
+            </div>
+            <div data-settings-category="fonts"></div>
         </div>
     </div>
     <script src="./scripts/settings.js"></script>
