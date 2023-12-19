@@ -6,6 +6,10 @@ const language = {
         "hints.modal.create.project": "create a new project",
         "hints.modal.settings": "change the application settings",
         "hints.close.application": "close this application",
-        "settings.header": "settings"
+        "settings.header": "settings",
+        "settings.categories.general": "general",
+        "settings.categories.timeline": "timeline",
+        "settings.categories.profiles": "profiles",
+        "settings.categories.fonts": "fonts",
     }
 }
