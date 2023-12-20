@@ -69,6 +69,9 @@ class Setting {
         if (!array instanceof Array) {
             throw new Error(`Your argument does not match the type of array! ${typeof array}`);
         }
+        array.forEach((string, index) => {
+            if (string.length > 17) throw new Error(`Your option at index ${index} is too long. Max Character limit is 18. Your length: ${string.length}`)
+        })
         this.options = array;
     }
     render() {

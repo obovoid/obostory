@@ -348,3 +348,7 @@ option {
     font-size: 1vw;
     letter-spacing: 0.1vw;
 }
+
+[data-settings-category] {
+    display: block;
+}

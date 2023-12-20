@@ -27,7 +27,6 @@ document.querySelectorAll('[data-command="settings"]').forEach(el => {
 
 function loadNewPage(page) {
     $(`.${currentPage}`).fadeOut(150);
-    console.log(page)
     if (page == 'container-settings') return openSettings();
 
     $(`.${page}`).fadeIn(150);
@@ -47,26 +46,28 @@ document.querySelectorAll('[data-href]').forEach(el => {
             loadNewPage(linkto) : 
             console.error(new Error(`nable to load page. Link could not be converted to a div containing the link as a class.`));
     });
-})
+});
 
 document.querySelectorAll('[data-collapse]').forEach(el => {
     const collapse_element = el.dataset.collapse
     el.addEventListener('click', (e) => {
-        // TODO: Glyphy needs work
-        const glyphy = e.target.nextElementSibling
-        const replace_glyph = glyphy.dataset?.glyphtoggle
-        if (replace_glyph) {
-            const last_glyph = String(glyphy.classList)
-            glyphy.classList = replace_glyph
-            glyphy.dataset.glyphtoggle = last_glyph
-        }
+
+        el.childNodes.forEach(node => {
+            if (node.dataset?.glyphtoggle) {
+                const current_class = String(node.classList)
+                const new_class = node.dataset.glyphtoggle
+
+                node.classList = new_class
+                node.dataset.glyphtoggle = current_class
+            }
+        });
 
         document.querySelectorAll(collapse_element).forEach(tocollapse => {
             const new_visibility = tocollapse.style.display == "none" ? 'block' : 'none'
             tocollapse.style.display = new_visibility
         });
-    })
-})
+    });
+});
 
 document.querySelectorAll('[data-translate]').forEach(el => {
     const translation_id = el.dataset.translate
