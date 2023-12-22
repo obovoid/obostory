@@ -1,12 +1,16 @@
+
 const openSettings = () => {
     $(`.${currentPage}`).fadeOut(150);
     $('.container-settings').css({display: 'block'})
     $('.container-settings').animate({left: "50%", opacity: 1});
     currentPage = 'container-settings'
+
+    global._setSettingsActive(true);
 }
 
 const unloadSettings = () => {
     $('.container-settings').animate({left: "150%", opacity: 0});
+    global._setSettingsActive(false);
 }
 
 let settings = []
@@ -66,6 +70,7 @@ class Setting {
      * @param {string[]} array
      */
     setOptions(array) {
+        if (this.type == 'switch') throw new Error(`Unable to set options on the selected setting type "${this.type}"`);
         if (!array instanceof Array) {
             throw new Error(`Your argument does not match the type of array! ${typeof array}`);
         }
@@ -74,7 +79,10 @@ class Setting {
         })
         this.options = array;
     }
-    render() {
+    render(cb) {
+
+        if (typeof cb !== 'function') throw new Error(`Expected a callback function to listen for changes.`)
+
         const list = document.querySelector(`[data-settings-category="${this.category}"]`);
         switch(this.type) {
             case 'switch':
@@ -99,6 +107,9 @@ class Setting {
                     const interaction_input = document.createElement('input');
                     interaction_input.type = 'checkbox'
                     interaction_input.defaultChecked = false || this.isChecked
+                    interaction_input.addEventListener('change', (event) => {
+                        cb(event.currentTarget.checked);
+                    })
                     
                     const interaction_slider = document.createElement('span');
                     interaction_slider.className = 'slider'
@@ -133,6 +144,9 @@ class Setting {
                     const interaction = document.createElement('select');
                     interaction.className = 'settings-set top'
                     interaction.id = 'select'
+                    interaction.addEventListener('change', (event) => {
+                        cb(event.currentTarget.value)
+                    })
 
                     this.options.forEach(option => {
                         const interaction_option = document.createElement('option');
@@ -152,9 +166,31 @@ class Setting {
     }
 }
 
-const a = new Setting('selection');
-a.setTitle('Testing stuff');
-a.setDescription('Turn this switch dude!');
-a.setOptions(['Lorem', 'ipsum', 'dolor', 'sit', 'amit'])
-a.setCategory('general')
-a.render();
+global.listen('escape', () => {
+    if (global.areSettingsActive()) {
+        unloadSettings();
+
+        setTimeout(() => {
+            document.querySelectorAll('[data-glyphiconpage]').forEach(element => {
+                const dataset = element?.dataset
+                if (dataset) {
+                    const identifier = dataset.identify
+                    const href = dataset.href
+    
+                    if (identifier === 'settings') {
+                        loadNewPage(href);
+                    }
+                }
+            });
+        }, 150);
+    }
+});
+
+const autoCollapseSettingsCategories = new Setting('switch');
+autoCollapseSettingsCategories.setCategory('general');
+autoCollapseSettingsCategories.setTitle(global.translate('settings.categories.autocollapse.title'))
+autoCollapseSettingsCategories.setDescription(global.translate('settings.categories.autocollapse.description'))
+autoCollapseSettingsCategories.setSwitchIsChecked(false);
+autoCollapseSettingsCategories.render((value) => {
+    console.log(value);
+})
