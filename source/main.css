@@ -159,11 +159,12 @@ div .glyphicon {
     width: 69vw;
     height: 5vw;
     border-radius: 0.5vw;
-    top: 1vw;
+    top: 1.2vw;
     left: 50%;
     background: var(--black);
     translate: -50% 0%;
     user-select: none;
+    margin-bottom: 0.1vw;
 }
 
 .category:hover {
