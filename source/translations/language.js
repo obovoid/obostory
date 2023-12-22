@@ -11,5 +11,7 @@ const language = {
         "settings.categories.timeline": "timeline",
         "settings.categories.profiles": "profiles",
         "settings.categories.fonts": "fonts",
+        "settings.categories.autocollapse.title": "Automatic Settings Collapsing",
+        "settings.categories.autocollapse.description": "Hide automatically listed sub-items in the categories instead of displaying them automatically",
     }
 }

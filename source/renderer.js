@@ -44,7 +44,7 @@ document.querySelectorAll('[data-href]').forEach(el => {
 
         div.length > 0 ? 
             loadNewPage(linkto) : 
-            console.error(new Error(`nable to load page. Link could not be converted to a div containing the link as a class.`));
+            console.error(new Error(`Unable to load page. Link could not be converted to a div containing the link as a class.`));
     });
 });
 
@@ -71,12 +71,8 @@ document.querySelectorAll('[data-collapse]').forEach(el => {
 
 document.querySelectorAll('[data-translate]').forEach(el => {
     const translation_id = el.dataset.translate
-    let default_language = navigator.language
-    if (!language[default_language]) {
-        default_language = 'en-US'
-    }
 
-    el.innerText = language[default_language][translation_id] || `translation missing {${translation_id}}`
+    el.innerText = global.translate(translation_id) || `translation missing {${translation_id}}`
 });
 
 //** Debug Start */
