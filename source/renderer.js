@@ -1,4 +1,15 @@
-let currentPage = 'container-startup'
+/* 
+    Copyright (c) 2023, Obovoid
+    All rights reserved.
+
+    This source code is licensed under the GPL-3.0-style license found in the
+    LICENSE file in the root directory of this source tree.
+*/
+
+import { getGlobal, createGlobal, setGlobal } from "./components/cache/globals.js";
+import { openSettings, unloadSettings } from "./components/settings/ui.js";
+
+let currentPage = createGlobal('activePage', 'container-startup');
 
 function app(cb) {
     if (window.API) return cb()
@@ -30,13 +41,15 @@ function loadNewPage(page) {
     if (page == 'container-settings') return openSettings();
 
     $(`.${page}`).fadeIn(150);
-    currentPage = page
+    currentPage = setGlobal('activePage', page);
 }
+
 
 document.querySelectorAll('[data-href]').forEach(el => {
     el.addEventListener('click', () => {
         const linkto = el.dataset.href
         const div = document.getElementsByClassName(linkto)
+        currentPage = getGlobal('activePage');
 
         if (currentPage == 'container-settings') {
             unloadSettings();
@@ -69,20 +82,4 @@ document.querySelectorAll('[data-collapse]').forEach(el => {
     });
 });
 
-document.querySelectorAll('[data-translate]').forEach(el => {
-    const translation_id = el.dataset.translate
-
-    el.innerText = global.translate(translation_id) || `translation missing {${translation_id}}`
-});
-
-//** Debug Start */
-function _reset() {
-    $(`.container-startup`).fadeIn(150);
-    $('.container-settings').animate({left: "150%", opacity: 0});
-}
-
-setTimeout(() => {
-    _reset()
-}, 500);
-
-//** Debug End */
+export { loadNewPage }
