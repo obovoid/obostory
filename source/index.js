@@ -6,11 +6,8 @@
     LICENSE file in the root directory of this source tree.
 */
 
-import { global } from "./global.js";
-onkeydown = (e) => {
-    switch (e.key) {
-        case 'Escape':
-            global.call('escape');
-            break
-    }
-}
+import './renderer.js'
+import './scripts/global.js'
+import './translations/language.js'
+import './scripts/settings.js'
+import './scripts/controls.js'

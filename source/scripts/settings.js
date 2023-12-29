@@ -1,19 +1,16 @@
+/* 
+    Copyright (c) 2023, Obovoid
+    All rights reserved.
 
-const openSettings = () => {
-    $(`.${currentPage}`).fadeOut(150);
-    $('.container-settings').css({display: 'block'})
-    $('.container-settings').animate({left: "50%", opacity: 1});
-    currentPage = 'container-settings'
+    This source code is licensed under the GPL-3.0-style license found in the
+    LICENSE file in the root directory of this source tree.
+*/
 
-    global._setSettingsActive(true);
-}
+import { global } from './global.js'
+import { onGlobalReady } from '../components/promises/onGlobalReady.js';
+import { unloadSettings } from '../components/settings/ui.js';
+import { loadNewPage } from '../renderer.js';
 
-const unloadSettings = () => {
-    $('.container-settings').animate({left: "150%", opacity: 0});
-    global._setSettingsActive(false);
-}
-
-let settings = []
 const types = ['switch', 'selection']
 const categories = ["general", "timeline", "profiles", "fonts"]
 
@@ -166,7 +163,20 @@ class Setting {
     }
 }
 
-global.listen('escape', () => {
+onGlobalReady(() => {
+    global.listen('escape', handleEscape);
+
+    const autoCollapseSettingsCategories = new Setting('switch');
+    autoCollapseSettingsCategories.setCategory('general');
+    autoCollapseSettingsCategories.setTitle(global.translate('settings.categories.autocollapse.title'))
+    autoCollapseSettingsCategories.setDescription(global.translate('settings.categories.autocollapse.description'))
+    autoCollapseSettingsCategories.setSwitchIsChecked(false);
+    autoCollapseSettingsCategories.render((value) => {
+        console.log(value);
+    });
+});
+
+function handleEscape() {
     if (global.areSettingsActive()) {
         unloadSettings();
 
@@ -184,13 +194,7 @@ global.listen('escape', () => {
             });
         }, 150);
     }
-});
+}
 
-const autoCollapseSettingsCategories = new Setting('switch');
-autoCollapseSettingsCategories.setCategory('general');
-autoCollapseSettingsCategories.setTitle(global.translate('settings.categories.autocollapse.title'))
-autoCollapseSettingsCategories.setDescription(global.translate('settings.categories.autocollapse.description'))
-autoCollapseSettingsCategories.setSwitchIsChecked(false);
-autoCollapseSettingsCategories.render((value) => {
-    console.log(value);
-})
+
+export { Setting }
