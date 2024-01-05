@@ -1,19 +1,32 @@
 /* 
-    Copyright (c) 2023, Obovoid
+    Copyright (c) 2024, Obovoid
     All rights reserved.
 
     This source code is licensed under the GPL-3.0-style license found in the
     LICENSE file in the root directory of this source tree.
 */
+'use strict';
 
 import { getGlobal, createGlobal, setGlobal } from "./components/cache/globals.js";
 import { openSettings, unloadSettings } from "./components/settings/ui.js";
+import { ensureType } from "./components/types/main.js";
 
 let currentPage = createGlobal('activePage', 'container-startup');
 
 function app(cb) {
     if (window.API) return cb()
     return null
+}
+
+const _registeredActionListeners = []
+
+function onAction(callback) {
+    _registeredActionListeners.push(callback);
+}
+
+function sendAction(string) {
+    ensureType(string, 'string');
+    _registeredActionListeners.forEach(cb => cb(string));
 }
 
 app(() => {
@@ -82,4 +95,4 @@ document.querySelectorAll('[data-collapse]').forEach(el => {
     });
 });
 
-export { loadNewPage }
+export { loadNewPage, onAction, sendAction, app }
