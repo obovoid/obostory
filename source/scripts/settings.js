@@ -1,5 +1,5 @@
 /* 
-    Copyright (c) 2023, Obovoid
+    Copyright (c) 2024, Obovoid
     All rights reserved.
 
     This source code is licensed under the GPL-3.0-style license found in the
@@ -10,9 +10,35 @@ import { global } from './global.js'
 import { onGlobalReady } from '../components/promises/onGlobalReady.js';
 import { unloadSettings } from '../components/settings/ui.js';
 import { loadNewPage } from '../renderer.js';
+import { getSettingsCache, storeKey } from '../components/cache/storage.js';
+import { fallback } from '../components/types/fallback.js';
+import { ensureType } from '../components/types/main.js';
 
 const types = ['switch', 'selection']
+// category names will be renamed soon
 const categories = ["general", "timeline", "profiles", "fonts"]
+
+let elements = categories.reduce((acc, category) => {
+    acc[category] = [];
+    return acc;
+}, {});
+
+function storeAlphabeticElement(object, category) {
+    ensureType(object, 'object');
+    ensureType(category, 'string');
+
+    if (!categories.includes(category)) throw new Error(`The category ${category} does not exist. Please change to a valid category ${String(categories)}`);
+
+    if (elements[category].length === 0) {
+        elements[category].push(object);
+        return true;
+    }
+
+    elements[category].push(object);
+    elements[category].sort((a, b) => a.title.localeCompare(b.title));
+
+    return true
+}
 
 /**
  * @param {switch | selection} setting_type
@@ -29,11 +55,13 @@ class Setting {
         this.description = "[description is missing]"
         this.isChecked = null
         this.options = null
+        this.restartRequired = false
     }
     /**
      * @param {string} categoryName
      */
     setCategory(categoryName) {
+        ensureType(categoryName, 'string');
         if (!categories.includes(categoryName)) {
             throw new Error(`Your category name does not match any of the possible categories. Please choose any of the following: ${JSON.stringify(categories)}`);
         }
@@ -43,7 +71,7 @@ class Setting {
      * @param {string} optionTitle
      */
     setTitle(optionTitle) {
-        if (typeof optionTitle != 'string') throw new Error(`Your title must be of type string and can't be ${typeof optionTitle}`);
+        ensureType(optionTitle, 'string');
         if (optionTitle.length < 4) throw new Error('Your title does not match the required length. Your title needs to be 4 characters or longer.');
 
         this.title = optionTitle
@@ -52,7 +80,7 @@ class Setting {
      * @param {string} optionDescription
      */
     setDescription(optionDescription) {
-        if (typeof optionDescription != 'string') throw new Error(`Your description must be of type string and can't be ${typeof optionTitle}`);
+        ensureType(optionDescription, 'string');
         if (optionDescription.length < 11) throw new Error('Your description does not match the required length. Your description needs to be 11 characters or longer.');
 
         this.description = optionDescription
@@ -61,12 +89,14 @@ class Setting {
      * @param {true | false} boolean
      */
     setSwitchIsChecked(boolean) {
+        ensureType(boolean, 'boolean');
         this.isChecked = Boolean(boolean);
     }
     /**
      * @param {string[]} array
      */
     setOptions(array) {
+        ensureType(array, 'array')
         if (this.type == 'switch') throw new Error(`Unable to set options on the selected setting type "${this.type}"`);
         if (!array instanceof Array) {
             throw new Error(`Your argument does not match the type of array! ${typeof array}`);
@@ -76,11 +106,13 @@ class Setting {
         })
         this.options = array;
     }
-    render(cb) {
+    setRestartRequired(bool) {
+        ensureType(bool, "boolean")
+    }
+    createAndResult(cb) {
 
         if (typeof cb !== 'function') throw new Error(`Expected a callback function to listen for changes.`)
 
-        const list = document.querySelector(`[data-settings-category="${this.category}"]`);
         switch(this.type) {
             case 'switch':
                 {
@@ -119,7 +151,8 @@ class Setting {
                     container.appendChild(description);
                     container.appendChild(interaction);
 
-                    list.appendChild(container);
+                    storeAlphabeticElement({container, title: this.title, category: this.category}, this.category);
+                    
                 }
                 break
             case 'selection':
@@ -156,7 +189,10 @@ class Setting {
                     container.appendChild(description);
                     container.appendChild(interaction);
 
-                    list.appendChild(container);
+
+                    storeAlphabeticElement({container, title: this.title, category: this.category}, this.category);
+                    
+                    
                 }
                 break
         }
@@ -164,15 +200,41 @@ class Setting {
 }
 
 onGlobalReady(() => {
+    const settings_configuration = getSettingsCache()?.settings
+
     global.listen('escape', handleEscape);
+
+    const saveWindowBounds = new Setting('switch');
+    saveWindowBounds.setCategory('general');
+    saveWindowBounds.setTitle(global.translate('settings.general.store.windowBounds.title'))
+    saveWindowBounds.setDescription(global.translate('settings.general.store.windowBounds.description'))
+    saveWindowBounds.setSwitchIsChecked(
+        fallback(settings_configuration?.storeWindowBounds, true)
+    );
+    saveWindowBounds.createAndResult((value) => {
+        storeKey('app.settings.storeWindowBounds', Boolean(value));
+    });
 
     const autoCollapseSettingsCategories = new Setting('switch');
     autoCollapseSettingsCategories.setCategory('general');
-    autoCollapseSettingsCategories.setTitle(global.translate('settings.categories.autocollapse.title'))
-    autoCollapseSettingsCategories.setDescription(global.translate('settings.categories.autocollapse.description'))
-    autoCollapseSettingsCategories.setSwitchIsChecked(false);
-    autoCollapseSettingsCategories.render((value) => {
-        console.log(value);
+    autoCollapseSettingsCategories.setTitle(global.translate('settings.general.autocollapse.title'))
+    autoCollapseSettingsCategories.setDescription(global.translate('settings.general.autocollapse.description'))
+    autoCollapseSettingsCategories.setSwitchIsChecked(
+        fallback(settings_configuration?.autoCollapseActive, false)
+    );
+    autoCollapseSettingsCategories.createAndResult((value) => {
+        storeKey('app.settings.autoCollapseActive', Boolean(value));
+    });
+    
+    const saveWindowPosition = new Setting('switch');
+    saveWindowPosition.setCategory('general');
+    saveWindowPosition.setTitle(global.translate('settings.general.store.windowPosition.title'))
+    saveWindowPosition.setDescription(global.translate('settings.general.store.windowPosition.description'))
+    saveWindowPosition.setSwitchIsChecked(
+        fallback(settings_configuration?.storeWindowPosition, true)
+    );
+    saveWindowPosition.createAndResult((value) => {
+        storeKey('app.settings.storeWindowPosition', Boolean(value));
     });
 });
 
@@ -197,4 +259,28 @@ function handleEscape() {
 }
 
 
-export { Setting }
+// Using render and release to handle when the settings should be loaded and when not
+// This gives better performance and also helps so that the settings can be sorted
+// alphabeticly before rendering them.
+function render() {
+    categories.forEach(category => {
+        const list = document.querySelector(`[data-settings-category="${category}"]`);
+        elements[category].forEach(obj => {
+            // Appending here from the sorted elements list
+            list.appendChild(obj.container);
+        })
+    })
+}
+
+function release() {
+    // setting a timeout so the animation can play before removing the children
+    setTimeout(() => {
+        categories.forEach(category => {
+            const list = document.querySelector(`[data-settings-category="${category}"]`);
+            // Replace children without arguments deletes everything without inserting a new child
+            list.replaceChildren();
+        })
+    }, 350);
+}
+
+export { Setting, render, release }
