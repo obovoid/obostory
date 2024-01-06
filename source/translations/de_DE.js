@@ -1,0 +1,22 @@
+export const de_DE = {
+    "window.title": "OboStory",
+    "renderer.modal.header": "Wähle eine Aktion aus",
+    "hints.modal.recent.projects": "Öffne deine kürzlich verwendeten Projekte",
+    "hints.modal.create.project": "Erstelle ein neues Projekt",
+    "hints.modal.settings": "Ändere die Anwendungseinstellungen",
+    "hints.close.application": "Schließe diese Anwendung",
+    "settings.header": "Einstellungen",
+    "settings.categories.general": "Allgemein",
+    "settings.categories.timeline": "Zeitachse",
+    "settings.categories.profiles": "Profile",
+    "settings.categories.fonts": "Schriftarten",
+    "settings.general.autocollapse.title": "Automatisches Einklappen der Einstellungen",
+    "settings.general.autocollapse.description": "Verberge automatisch aufgeführte Unterelemente in den Kategorien anstelle von automatischer Anzeige",
+    "settings.general.store.windowBounds.title": "Größe des Fensters speichern",
+    "settings.general.store.windowBounds.description": "Wenn aktiviert, wird die App das Fenster beim Start automatisch auf die Größe der letzten Sitzung anpassen, um deine Benutzeroberfläche gleich zu halten.",
+    "settings.general.store.windowPosition.title": "Position des Fensters speichern",
+    "settings.general.store.windowPosition.description": "Wenn aktiviert, wird die App die Fensterposition automatisch an die der letzten Sitzung anpassen, auch wenn du das Fenster auf einen anderen Bildschirm verschiebst.",
+    "settings.general.language.title": "Sprache",
+    "settings.general.language.description": "Stelle die Sprache ein, in der die App angezeigt wird. Falls deine Sprache noch nicht vertreten ist, kannst du natürlich dabei helfen, die App in weitere Sprachen auf Github zu übersetzen. Besuche jederzeit https://github.com/obovoid/obostory",
+    "settings.general.restartRequired": "Ein Neustart der App ist erforderlich, damit die Funktion vollständig funktioniert!"
+}
