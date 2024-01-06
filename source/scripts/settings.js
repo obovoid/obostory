@@ -56,6 +56,7 @@ class Setting {
         this.isChecked = null
         this.options = null
         this.restartRequired = false
+        this.selectionElement = null
     }
     /**
      * @param {string} categoryName
@@ -108,6 +109,12 @@ class Setting {
     }
     setRestartRequired(bool) {
         ensureType(bool, "boolean")
+        this.restartRequired = true;
+    }
+    selectionSetValue(value) {
+        ensureType(value, "string");
+        if (!this.selectionElement) throw new Error("Before Changing the selection value, you need to create it first!");
+        this.selectionElement.value = value;
     }
     createAndResult(cb) {
 
@@ -130,6 +137,15 @@ class Setting {
                     description.className = 'settings-descriptions-text'
                     description.innerText = this.description
 
+                    let footer;
+                    if (this.restartRequired) {
+                        footer = document.createElement('footer');
+                        footer.className = 'settings-footer'
+                        const small_content = document.createElement('small');
+                        small_content.innerText = global.translate('settings.general.restartRequired');
+                        footer.appendChild(small_content);
+                    }
+
                     const interaction = document.createElement('label');
                     interaction.className = 'switch settings-set'
 
@@ -150,6 +166,9 @@ class Setting {
                     container.appendChild(breakline);
                     container.appendChild(description);
                     container.appendChild(interaction);
+                    if (footer) {
+                        container.appendChild(footer);
+                    }
 
                     storeAlphabeticElement({container, title: this.title, category: this.category}, this.category);
                     
@@ -171,12 +190,23 @@ class Setting {
                     description.className = 'settings-descriptions-text'
                     description.innerText = this.description
 
+                    let footer;
+                    if (this.restartRequired) {
+                        footer = document.createElement('footer');
+                        footer.className = 'settings-footer'
+                        const small_content = document.createElement('small');
+                        small_content.innerText = global.translate('settings.general.restartRequired');
+                        footer.appendChild(small_content);
+                    }
+
                     const interaction = document.createElement('select');
                     interaction.className = 'settings-set top'
                     interaction.id = 'select'
                     interaction.addEventListener('change', (event) => {
                         cb(event.currentTarget.value)
                     })
+
+                    this.selectionElement = interaction;
 
                     this.options.forEach(option => {
                         const interaction_option = document.createElement('option');
@@ -188,6 +218,9 @@ class Setting {
                     container.appendChild(breakline);
                     container.appendChild(description);
                     container.appendChild(interaction);
+                    if (footer) {
+                        container.appendChild(footer);
+                    }
 
 
                     storeAlphabeticElement({container, title: this.title, category: this.category}, this.category);
