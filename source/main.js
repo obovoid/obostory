@@ -7,7 +7,7 @@
 */
 'use strict';
 
-const {app, BrowserWindow, ipcMain, dialog} = require('electron');
+const {app, BrowserWindow, ipcMain, dialog, shell, globalShortcut} = require('electron');
 const path = require('node:path');
 const storage = require('electron-store');
 const Storage = new storage();
@@ -78,6 +78,13 @@ const WINDOW = () => {
 
     // load app
     win.loadFile(path.join(__dirname, 'app.html'));
+
+    // register shortcuts;
+
+    globalShortcut.register('f5', function() {
+        console.log('reloading environment...');
+        win.reload();
+    })
 }
 
 
@@ -113,6 +120,10 @@ ipcMain.on('setStorageKey', (_event, key, value) => {
     console.log(`Storage key "${key}" has been set to ${value}`);
 })
 
+ipcMain.on('updateGeneralLanguage', (_event, languageId) => {
+    Storage.set('app.general.language', languageId);
+})
+
 let application_crashed = false
 ipcMain.on('remoteError', (_event, errorMessage) => {
     // App process does not run in sync with the frontend part and therefore we need to ensure that the application can only crash once.
@@ -129,3 +140,32 @@ ipcMain.on('remoteError', (_event, errorMessage) => {
 
     app.exit(1);
 });
+
+function openURL(url) {
+    shell.openExternal(url);
+    return true;
+}
+
+ipcMain.on('requestOpenUrl', async (_event, url) => {
+    const messageBoxOptions = {
+        type: "question",
+        title: "Open this link in your browser?",
+        message: `You are about to open the shown link below in your browser.\nDo you wish to continue?\n\n"${url}"`,
+        buttons: ['Open in Browser', 'Dismiss']
+    }
+
+    const { response } = await dialog.showMessageBox(messageBoxOptions);
+    if (response == 1) return;
+
+    return openURL(url);
+});
+
+ipcMain.on('showAppInfo', (_event) => {
+    const messageBoxOptions = {
+        type: "info",
+        title: "App Informations Obostory",
+        message: `Programmed by Obovoid\nVersion: WIP 0.0.8\nNode: ${process.versions.node}\nElectron: ${process.versions.electron}\nChromium: ${process.versions.chrome}`
+    }
+    dialog.showMessageBoxSync(messageBoxOptions);
+    return true;
+})

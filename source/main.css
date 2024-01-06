@@ -12,6 +12,7 @@
     --light-black: #303030;
     --grey: #ccc;
     --white: #FFFFFF;
+    --attention-color: #ce0909;
 }
 
 @font-face {
@@ -317,26 +318,6 @@ input:checked + .slider:before {
     top: 30%;
 }
 
-[data-scale="small"] {
-    width: 1vw;
-    height: 1vw;
-}
-
-[data-scale="normal"] {
-    width: 2vw;
-    height: 2vw;
-}
-
-[data-scale="big"] {
-    width: 3vw;
-    height: 3vw;
-}
-
-[data-scale="large"] {
-    width: 5vw;
-    height: 5vw;
-}
-
 select,
 option {
     border: 0;
@@ -352,4 +333,34 @@ option {
 
 [data-settings-category] {
     display: block;
+}
+
+[data-modalGithub] {
+    position: relative;
+    left: 66.5vw;
+    bottom: 18vw;
+    width: 1.5vw;
+    height: 1.5vw;
+}
+
+[data-modalInfo] {
+    position: relative;
+    left: 70vw;
+    bottom: 18vw;
+    width: 1.5vw;
+    height: 1.5vw;
+}
+
+[data-modalGithub]:hover,
+[data-modalInfo]:hover {
+    cursor: pointer;
+}
+
+.settings-footer {
+    position: relative;
+    font-family: Aamiya-regular;
+    font-weight: bold;
+    font-size: 0.8vw;
+    color: var(--attention-color);
+    letter-spacing: 0.1vw;
 }

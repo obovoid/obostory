@@ -1,5 +1,5 @@
 /* 
-    Copyright (c) 2023, Obovoid
+    Copyright (c) 2024, Obovoid
     All rights reserved.
 
     This source code is licensed under the GPL-3.0-style license found in the
@@ -8,6 +8,7 @@
 
 import { language } from "../translations/language.js"
 import { getGlobal, setGlobal } from "../components/cache/globals.js"
+import { getSettingsCache } from "../components/cache/storage.js"
 
 const global = {}
 global._eventHolder = {}
@@ -39,12 +40,12 @@ global.areSettingsActive = () => {
 }
 
 global.translate = (translation_id) => {
-    let default_language = navigator.language
+    let default_language = getSettingsCache().general.language || navigator.language.replace('-', '_');
     if (!language[default_language]) {
-        default_language = 'en-US'
+        default_language = 'en_US'
     }
 
-    return language[default_language][translation_id]
+    return language[default_language][translation_id] || `translation missing {${translation_id}}`
 }
 
 export { global }

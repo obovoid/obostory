@@ -13,7 +13,10 @@ contextBridge.exposeInMainWorld('API', {
     quit: userQuit,
     getStorageKey,
     setStorageKey,
-    newError
+    newError,
+    openURL,
+    showAppInfo,
+    updateLanguageId
 })
 
 function userQuit() {
@@ -33,8 +36,34 @@ function setStorageKey(key, value) {
     ipcRenderer.send('setStorageKey', key, value);
 }
 
+const isValidUrl = urlString=> {
+    const urlPattern = new RegExp('^(https?:\\/\\/)?'+              // validate protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+         // validate domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))'+                              // validate OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+                          // validate port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?'+                                 // validate query string
+        '(\\#[-a-z\\d_]*)?$','i');                                  // validate fragment locator
+    return !!urlPattern.test(urlString);
+}
+
+function openURL(link) {
+    if (typeof link !== 'string') throw new Error(`Unable to use ${link} as string value. Argument must be a valid string and a valid link!`);
+    if (!isValidUrl(link)) throw new Error(`Unable to use ${link} as valid link string. Please ensure that the formatting for this link is correct.`);
+
+    ipcRenderer.send('requestOpenUrl', link);
+}
+
+function showAppInfo() {
+    ipcRenderer.send('showAppInfo');
+}
+
 // This function creates a direct application crash error.
 function newError(errorString) {
     console.log("sending Error", errorString);
     ipcRenderer.send('remoteError', errorString)
+}
+
+function updateLanguageId(id) {
+    console.log("updating Language Id to: ", id);
+    ipcRenderer.send('updateGeneralLanguage', id);
 }

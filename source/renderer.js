@@ -43,6 +43,12 @@ app(() => {
     document.querySelectorAll('[data-command="quit"]').forEach(el => {
         el.addEventListener('click', window.API.quit);
     });
+
+    setTimeout(() => {
+        $('.container-settings').animate({left: "150%", opacity: 0});
+        $('.container-settings').css({display: "none"})
+        $(`.${currentPage}`).fadeIn(150);
+    }, 150)
 });
 
 document.querySelectorAll('[data-command="settings"]').forEach(el => {
@@ -56,7 +62,6 @@ function loadNewPage(page) {
     $(`.${page}`).fadeIn(150);
     currentPage = setGlobal('activePage', page);
 }
-
 
 document.querySelectorAll('[data-href]').forEach(el => {
     el.addEventListener('click', () => {
@@ -93,6 +98,24 @@ document.querySelectorAll('[data-collapse]').forEach(el => {
             tocollapse.style.display = new_visibility
         });
     });
+});
+
+document.querySelectorAll('[data-modalGithub').forEach(el => {
+    el.addEventListener('click', () => {
+        app(() => {
+            // It is more likely that people clicking the icon are trying to report a issue
+            // So we redirect them directly to githubs issues page.
+            window.API.openURL('https://github.com/obovoid/obostory/issues')
+        })
+    })
+});
+
+document.querySelectorAll('[data-modalInfo').forEach(el => {
+    el.addEventListener('click', () => {
+        app(() => {
+            window.API.showAppInfo();
+        })
+    })
 });
 
 export { loadNewPage, onAction, sendAction, app }
