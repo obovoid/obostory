@@ -7,22 +7,64 @@
 */
 
 import { ensureType } from "../types/main.js";
-import {app} from '../../renderer.js'
+import { app, sendAction } from '../../renderer.js'
 
 let cache;
 
 function saveAppCache(app_cache) {
     ensureType(app_cache, 'object');
     cache = app_cache;
+    return sendAction('ready.cache');
 }
 
 function getSettingsCache() {
     return cache;
 }
 
+function getObjectProperty(obj, keys) {
+    return keys.reduce((acc, key) => (acc && acc[key] !== 'undefined') ? acc[key] : undefined, obj);
+}
+  
+function setObjectProperty(obj, keys, value) {
+    const lastKey = keys.pop();
+    const parentObj = getObjectProperty(obj, keys);
+
+    if (parentObj && typeof parentObj === 'object') {
+        parentObj[lastKey] = value;
+        return true;
+    }
+
+    return false;
+}
+  
+function objectManipulate(readKeys, writeValue = undefined) {
+    if (!Array.isArray(readKeys) || readKeys.some(key => typeof key !== 'string')) {
+        throw new Error('readKeys argument must be an array of strings.');
+    }
+
+    const accessedValue = getObjectProperty(cache, readKeys);
+
+    if (typeof writeValue === 'undefined') {
+        return accessedValue;
+    } else {
+        if (setObjectProperty(cache, readKeys, writeValue)) {
+            return cache;
+        } else {
+            throw new Error('Failed to set object property. Make sure the specified keys are valid.');
+        }
+    }
+}
+
 function updateSettingsCache(updater, value) {
     ensureType(updater, 'string');
-    cache[updater] = value;
+
+    if (updater.startsWith('app.')) {
+        updater = updater.replace(/^(app\.)/, "");
+    }
+
+    const keys = updater.split(".")
+    objectManipulate(keys, value);
+
     return value;
 }
 

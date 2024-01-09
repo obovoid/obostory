@@ -9,6 +9,7 @@
 import { getGlobal, setGlobal, createGlobal, globalExists } from "../cache/globals.js";
 import { sendAction, onAction } from "../../renderer.js";
 import { render, release } from "../../scripts/settings.js";
+import { getSettingsCache } from "../cache/storage.js";
 
 createGlobal('settingsPageActive', false);
 
@@ -33,13 +34,62 @@ const unloadSettings = () => {
     sendAction('close.settings');
 }
 
+const hideCategories = () => {
+    const hidden_class = "glyphicon glyphicon-chevron-down glyph-category"
+    const visible_class = "glyphicon glyphicon-chevron-up glyph-category"
+
+    document.querySelectorAll('[data-collapse]').forEach(el => {
+        const collapse_element = el.dataset.collapse
+
+        el.childNodes.forEach(node => {
+            if (node.dataset?.glyphtoggle) {
+
+                node.classList = hidden_class
+                node.dataset.glyphtoggle = visible_class
+            }
+        });
+
+        document.querySelectorAll(collapse_element).forEach(tocollapse => {
+            tocollapse.style.display = "none"
+        });
+    });
+}
+
+document.querySelectorAll('[data-collapse]').forEach(el => {
+    const collapse_element = el.dataset.collapse
+    el.addEventListener('click', (e) => {
+
+        el.childNodes.forEach(node => {
+            if (node.dataset?.glyphtoggle) {
+                const current_class = String(node.classList)
+                const new_class = node.dataset.glyphtoggle
+
+                node.classList = new_class
+                node.dataset.glyphtoggle = current_class
+            }
+        });
+
+        document.querySelectorAll(collapse_element).forEach(tocollapse => {
+            const new_visibility = tocollapse.style.display == "none" ? 'block' : 'none'
+            tocollapse.style.display = new_visibility
+        });
+    });
+});
+
 async function init() {
     await onAction;
     onAction((actionName) => {
-        if (actionName === 'open.settings') {
-            render();
-        } else if (actionName === 'close.settings') {
-            release();
+        switch(actionName) {
+            case 'open.settings':
+                render();
+
+                let cache = getSettingsCache().settings;
+                if (cache.autoCollapseActive) {
+                    hideCategories();
+                }
+                return true;
+            case 'close.settings':
+                return release();
         }
     })
 }

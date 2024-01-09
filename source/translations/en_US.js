@@ -11,7 +11,7 @@ export const en_US = {
     "settings.categories.profiles": "profiles",
     "settings.categories.fonts": "fonts",
     "settings.general.autocollapse.title": "Automatic Settings Collapsing",
-    "settings.general.autocollapse.description": "Hide automatically listed sub-items in the categories instead of displaying them automatically",
+    "settings.general.autocollapse.description": "Hide automatically listed sub-items in the categories instead of displaying them automatically. If deactivated, the category will remember whether it was open or closed the last time and return to this state. If the app is restarted, the category will always be open unless the switch is on.",
     "settings.general.store.windowBounds.title": "Save the window size",
     "settings.general.store.windowBounds.description": "If activated, the app will automatically resize the window to the size of the last session on startup to keep your interface the same.",
     "settings.general.store.windowPosition.title": "Save the window position",

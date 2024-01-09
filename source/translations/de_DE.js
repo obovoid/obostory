@@ -11,7 +11,7 @@ export const de_DE = {
     "settings.categories.profiles": "Profile",
     "settings.categories.fonts": "Schriftarten",
     "settings.general.autocollapse.title": "Automatisches Einklappen der Einstellungen",
-    "settings.general.autocollapse.description": "Verberge automatisch aufgeführte Unterelemente in den Kategorien anstelle von automatischer Anzeige",
+    "settings.general.autocollapse.description": "Automatisch aufgelistete Unterpunkte in den Kategorien ausblenden, statt sie automatisch anzeigen zu lassen. Bei Deaktivierung merkt sich die Kategorie, ob sie beim letzten Mal geöffnet oder geschlossen war und kehrt in diesen Zustand zurück. Wenn die App neu gestartet wird, ist die Kategorie immer geöffnet, es sei denn, der Schalter ist eingeschaltet.",
     "settings.general.store.windowBounds.title": "Größe des Fensters speichern",
     "settings.general.store.windowBounds.description": "Wenn aktiviert, wird die App das Fenster beim Start automatisch auf die Größe der letzten Sitzung anpassen, um deine Benutzeroberfläche gleich zu halten.",
     "settings.general.store.windowPosition.title": "Position des Fensters speichern",
