@@ -27,6 +27,7 @@ function onAction(callback) {
 function sendAction(string) {
     ensureType(string, 'string');
     _registeredActionListeners.forEach(cb => cb(string));
+    return true;
 }
 
 app(() => {
@@ -76,27 +77,6 @@ document.querySelectorAll('[data-href]').forEach(el => {
         div.length > 0 ? 
             loadNewPage(linkto) : 
             console.error(new Error(`Unable to load page. Link could not be converted to a div containing the link as a class.`));
-    });
-});
-
-document.querySelectorAll('[data-collapse]').forEach(el => {
-    const collapse_element = el.dataset.collapse
-    el.addEventListener('click', (e) => {
-
-        el.childNodes.forEach(node => {
-            if (node.dataset?.glyphtoggle) {
-                const current_class = String(node.classList)
-                const new_class = node.dataset.glyphtoggle
-
-                node.classList = new_class
-                node.dataset.glyphtoggle = current_class
-            }
-        });
-
-        document.querySelectorAll(collapse_element).forEach(tocollapse => {
-            const new_visibility = tocollapse.style.display == "none" ? 'block' : 'none'
-            tocollapse.style.display = new_visibility
-        });
     });
 });
 
