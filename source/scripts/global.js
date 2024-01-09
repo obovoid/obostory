@@ -18,7 +18,7 @@ global.listen = (eventName, func) => {
     if (typeof func !== 'function') throw new Error(`Argument 1 needs to be of type function[callback] and not ${typeof func}`)
     
     if (!global._eventHolder[eventName]) {
-    	global._eventHolder[eventName] = []
+        global._eventHolder[eventName] = []
     }
     
     global._eventHolder[eventName].push(func);
@@ -27,7 +27,7 @@ global.listen = (eventName, func) => {
 global.call = (eventName, argumentList) => {
     if (!global._eventHolder[eventName]) return;
 	global._eventHolder[eventName].forEach(func => {
-    	func(argumentList);
+        func(argumentList);
     });
 }
 

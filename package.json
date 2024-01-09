@@ -19,7 +19,8 @@
   "author": "obovoid",
   "license": "GPL-3.0",
   "devDependencies": {
-    "electron": "^28.0.0"
+    "electron": "^28.0.0",
+    "eslint": "^8.56.0"
   },
   "dependencies": {
     "electron-store": "^8.1.0"

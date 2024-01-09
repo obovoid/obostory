@@ -57,7 +57,7 @@ const hideCategories = () => {
 
 document.querySelectorAll('[data-collapse]').forEach(el => {
     const collapse_element = el.dataset.collapse
-    el.addEventListener('click', (e) => {
+    el.addEventListener('click', () => {
 
         el.childNodes.forEach(node => {
             if (node.dataset?.glyphtoggle) {
@@ -76,22 +76,41 @@ document.querySelectorAll('[data-collapse]').forEach(el => {
     });
 });
 
+/**
+ * initializes the settings page
+ */
 async function init() {
-    await onAction;
-    onAction((actionName) => {
-        switch(actionName) {
-            case 'open.settings':
-                render();
+  /**
+   * waits for the onAction function to be ready
+   */
+  await onAction;
 
-                let cache = getSettingsCache().settings;
-                if (cache.autoCollapseActive) {
-                    hideCategories();
-                }
-                return true;
-            case 'close.settings':
-                return release();
+  /**
+   * listens for individual actions
+   */
+  onAction((actionName) => {
+    switch (actionName) {
+      case 'open.settings':
+        render();
+        {
+          /**
+           * retrieves the settings from the cache
+           */
+          let cache = getSettingsCache().settings;
+          /**
+           * if the autoCollapseActive setting is true,
+           * collapses all the categories on the settings page
+           */
+          if (cache.autoCollapseActive) {
+            hideCategories();
+          }
         }
-    })
+        return true;
+      case 'close.settings':
+        // unloads the settings page
+        return release();
+    }
+  });
 }
 init();
 

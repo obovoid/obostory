@@ -13,9 +13,22 @@ import { ensureType } from "./components/types/main.js";
 
 let currentPage = createGlobal('activePage', 'container-startup');
 
-function app(cb) {
-    if (window.API) return cb()
-    return null
+/**
+ * Checks if the code is being executed inside the electron app.
+ * @param {Function} fn - The function to execute if the code is being executed inside the electron app.
+ */
+function app(fn) {
+  /**
+   * Checks if the user agent includes Electron.
+   */
+  const in_app = window.navigator.userAgent.includes('Electron');
+
+  /**
+   * If the code is being executed inside the electron app, execute the function.
+   */
+  if (in_app) {
+    fn();
+  }
 }
 
 const _registeredActionListeners = []
@@ -24,10 +37,15 @@ function onAction(callback) {
     _registeredActionListeners.push(callback);
 }
 
+/**
+ * Sends an action to all registered action listeners.
+ * @param {string} string - The action to send.
+ * @returns {boolean} Returns true if the action was sent, false otherwise.
+ */
 function sendAction(string) {
-    ensureType(string, 'string');
-    _registeredActionListeners.forEach(cb => cb(string));
-    return true;
+  ensureType(string, 'string');
+  _registeredActionListeners.forEach(cb => cb(string));
+  return true;
 }
 
 app(() => {

@@ -10,15 +10,22 @@ function getType(value) {
     let type = Object.prototype.toString.call(value).split(' ')[1].replace(']', '').toLowerCase();
     switch(type) {
         case 'function':
-            // This may be a poor implementation but since JS does not differ between Classes and Function the only option for now.
-                const isClass = /^\s*class\s+/.test(value.toString());
+            {
+                // This may be a poor implementation but since JS does not differ between Classes and Function the only option for now.
+                const isClass = /^\s*class\s+/.test( value.toString() );
                 isClass ? type = "class" : type = "function"
+            }
             break
     }
 
     return type
 }
 
+/**
+ * Returns the file name of the file that called the current function.
+ * 
+ * @returns {string} The file name of the file that called the current function.
+ */
 function _getCallerFile() {
     let traceLog;
     let debugInformation;
@@ -42,21 +49,28 @@ function _getCallerFile() {
                 break;
             }
         }
-    } catch (err) {}
+    } catch (err) {/* Ignoring Errors */}
     Error.prepareStackTrace = _pst;
     
 
     return traceLog += `\n\nFailed function with line and position:\n${debugInformation}`;
 }
 
+/**
+ * Checks if the received value is of the expected type. If not, throws an error.
+ * 
+ * @param {any} value - The value to check.
+ * @param {string} expectedType - The expected type of the value.
+ * @returns {boolean} Returns true if the value is of the expected type, false otherwise.
+ */
 function ensureType(value, expectedType) {
-    const received_type = getType(value)
-    if (received_type !== expectedType) {
-        console.log('preparing to throw Error Exception...');
-        window.API.newError(`Type Error. Expected ${expectedType}, but instead received "${received_type}".\n${_getCallerFile()}`);
-        return false
-    }
-    return true
+  const receivedType = getType(value);
+  if (receivedType !== expectedType) {
+    console.log('preparing to throw Error Exception...');
+    window.API.newError(`Type Error. Expected ${expectedType}, but instead received "${receivedType}".\n${_getCallerFile()}`);
+    return false;
+  }
+  return true;
 }
 
 export { getType, ensureType }

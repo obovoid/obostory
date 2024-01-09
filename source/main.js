@@ -17,29 +17,57 @@ process.on('uncaughtException', error => {
 	process.exit(1);
 });
 
+/**
+ * Returns the window bounds based on the user's preferences.
+ * 
+ * @returns {number[]} The window bounds as an array of width and height.
+ */
 function getWindowBounds() {
-    const prefix_bounds = [800, 600]
+    const prefix_bounds = [800, 600];
 
-    if (Storage.get('app.settings.storeWindowBounds') == false) {
-        return prefix_bounds
+    if (Storage.get('app.settings.storeWindowBounds') === false) {
+        return prefix_bounds;
     }
 
     const bounds = Storage.get('windowBounds');
 
-    if (bounds) return bounds;
+    if (bounds) {
+        return bounds;
+    }
 
     Storage.set('windowBounds', prefix_bounds);
     return prefix_bounds;
 }
 
+/**
+ * Saves the current window bounds to the system storage.
+ *
+ * @param {number[]} size - The window size as an array of width and height.
+ */
 function saveWindowBounds(size) {
-    Storage.set('windowBounds', size);
+    if (!Array.isArray(size) || size.length !== 2) {
+        throw new Error(`Expected an array for the size argument, got ${typeof size} instead`);
+    }
+    return Storage.set('windowBounds', size);
 }
 
+/**
+ * Saves the current window position to the system storage.
+ *
+ * @param {number[]} pos - The window position as an array of x and y in pixels.
+ */
 function saveWindowPosition(pos) {
-    Storage.set('windowPosition', pos);
+    if (!Array.isArray(pos) || pos.length !== 2) {
+        throw new Error(`Expected an array for the pos argument, got ${typeof pos} instead`);
+    }
+    return Storage.set('windowPosition', pos);
 }
 
+/**
+ * Returns the window position based on the user's preferences.
+ * 
+ * @returns {number[]} The window position as an array of x and y in pixels.
+ */
 function getWindowPosition() {
     const position = Storage.get('windowPosition');
 
@@ -141,9 +169,14 @@ ipcMain.on('remoteError', (_event, errorMessage) => {
     app.exit(1);
 });
 
+/**
+ * Opens a given URL in the default web browser.
+ * @param {string} url - The URL to open.
+ * @returns {boolean} Returns `true` if the URL was opened successfully
+ */
 function openURL(url) {
-    shell.openExternal(url);
-    return true;
+  shell.openExternal(url);
+  return true;
 }
 
 ipcMain.on('requestOpenUrl', async (_event, url) => {
@@ -160,11 +193,11 @@ ipcMain.on('requestOpenUrl', async (_event, url) => {
     return openURL(url);
 });
 
-ipcMain.on('showAppInfo', (_event) => {
+ipcMain.on('showAppInfo', () => {
     const messageBoxOptions = {
         type: "info",
         title: "App Informations Obostory",
-        message: `Programmed by Obovoid\nVersion: WIP 0.0.8\nNode: ${process.versions.node}\nElectron: ${process.versions.electron}\nChromium: ${process.versions.chrome}`
+        message: `Programmed by Obovoid\nVersion: WIP 0.1.1\nNode: ${process.versions.node}\nElectron: ${process.versions.electron}\nChromium: ${process.versions.chrome}`
     }
     dialog.showMessageBoxSync(messageBoxOptions);
     return true;
