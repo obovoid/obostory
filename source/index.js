@@ -10,12 +10,13 @@ import { saveAppCache } from './components/cache/storage.js';
 import { app } from './renderer.js';
 
 async function init() {
-    const in_app = app(async () => {
+    app(async () => {
+        // if in Electron app, load the cache from storage
         const cache = await window.API.getStorageKey('app');
 
+        // Save the cache to the cache variable in storage.js
         saveAppCache(cache);
-    })
-    if (!in_app) return console.warn('Cache initializing aborted. Not in app environment.')
+    });
 }
 await init();
 

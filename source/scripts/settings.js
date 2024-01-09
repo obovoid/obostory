@@ -99,7 +99,7 @@ class Setting {
     setOptions(array) {
         ensureType(array, 'array')
         if (this.type == 'switch') throw new Error(`Unable to set options on the selected setting type "${this.type}"`);
-        if (!array instanceof Array) {
+        if (!(array instanceof Array)) {
             throw new Error(`Your argument does not match the type of array! ${typeof array}`);
         }
         array.forEach((string, index) => {
