@@ -16,6 +16,16 @@
     "characters",
     "create"
   ],
+  "build": {
+    "fileAssociations": [
+      {
+        "ext": "osp",
+        "name": "Obostory Project File",
+        "role": "editor",
+        "perMachine": true
+      }
+    ]
+  },
   "author": "obovoid",
   "license": "GPL-3.0",
   "devDependencies": {
@@ -23,6 +33,7 @@
     "eslint": "^8.56.0"
   },
   "dependencies": {
-    "electron-store": "^8.1.0"
+    "electron-store": "^8.1.0",
+    "fs": "^0.0.1-security"
   }
 }
