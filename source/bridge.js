@@ -17,8 +17,33 @@ contextBridge.exposeInMainWorld('API', {
     newError,
     openURL,
     showAppInfo,
-    updateLanguageId
-})
+    updateLanguageId,
+    requestRestart,
+    onWindowEvent
+});
+
+const windowEvents = {}
+
+function onWindowEvent(eventName, callback) {
+    if (!windowEvents[eventName]) {
+        windowEvents[eventName] = [];
+    }
+    windowEvents[eventName].push(callback);
+}
+
+function callWindowEvent(eventName, param, callback) {
+    const callbacks = windowEvents[eventName];
+    if (callbacks) {
+        const cp_cb = callbacks.slice();
+        cp_cb.forEach(callback => {
+            param = callback(param);
+        });
+    }
+
+    if (callback) {
+        callback(param);
+    }
+}
 
 function userQuit() {
     // ipcRenderer.send, is basicly a trigger of an event without expecting to get a value back
@@ -100,4 +125,21 @@ function newError(errorString) {
 function updateLanguageId(id) {
     console.log("updating Language Id to: ", id);
     ipcRenderer.send('updateGeneralLanguage', id);
+    requestRestart();
 }
+
+function requestRestart(options) {
+    ipcRenderer.send('requestRestart', options);
+}
+
+ipcRenderer.on('receiver', async (_event, actionMessage, customParameter, id) => {
+    let result;
+    switch (actionMessage) {
+        case 'translateContextId':
+            callWindowEvent('translateContextId', customParameter, (res) => {
+                result = res;
+            });
+            break
+    }
+    ipcRenderer.send(id, result);
+});
