@@ -8,7 +8,7 @@
 
 import { language } from "../translations/language.js"
 import { getGlobal, setGlobal } from "../components/cache/globals.js"
-import { getSettingsCache } from "../components/cache/storage.js"
+import { safeUnfoldCache } from "../components/cache/storage.js"
 
 const global = {}
 global._eventHolder = {}
@@ -40,7 +40,7 @@ global.areSettingsActive = () => {
 }
 
 global.translate = (translation_id) => {
-    let default_language = getSettingsCache().general.language || navigator.language.replace('-', '_');
+    let default_language = safeUnfoldCache("general.language") || navigator.language.replace('-', '_');
     if (!language[default_language]) {
         default_language = 'en_US'
     }

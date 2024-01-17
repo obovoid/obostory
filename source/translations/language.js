@@ -10,7 +10,7 @@ import { global } from '../scripts/global.js';
 import { onGlobalReady } from '../components/promises/onGlobalReady.js';
 import { Setting } from '../scripts/settings.js'
 import { app } from '../renderer.js';
-import { getSettingsCache } from '../components/cache/storage.js';
+import { safeUnfoldCache } from '../components/cache/storage.js';
 
 // language imports
 import { en_US } from './en_US.js'
@@ -39,7 +39,7 @@ onGlobalReady(() => {
             window.API.updateLanguageId(result);
         });
     });
-    languageSelection.selectionSetValue(getSettingsCache().general.language);
+    languageSelection.selectionSetValue(safeUnfoldCache("general.language") || "en_US");
 })
 
 export { language }
