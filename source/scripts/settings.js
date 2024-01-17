@@ -255,6 +255,7 @@ onGlobalReady(() => {
     autoCollapseSettingsCategories.setSwitchIsChecked(
         fallback(settings_configuration?.autoCollapseActive, false)
     );
+    autoCollapseSettingsCategories.setRestartRequired(true);
     autoCollapseSettingsCategories.createAndResult((value) => {
         storeKey('app.settings.autoCollapseActive', Boolean(value));
     });
