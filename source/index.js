@@ -8,6 +8,7 @@
 
 import { saveAppCache } from './components/cache/storage.js';
 import { app } from './renderer.js';
+import { global } from './scripts/global.js';
 
 async function init() {
     app(async () => {
@@ -16,6 +17,11 @@ async function init() {
 
         // Save the cache to the cache variable in storage.js
         saveAppCache(cache);
+
+        window.API.onWindowEvent('translateContextId', (id) => {
+            const translation = global.translate(id);
+            return translation
+        });
     });
 }
 await init();
