@@ -9,7 +9,7 @@
 import { getGlobal, setGlobal, createGlobal, globalExists } from "../cache/globals.js";
 import { sendAction, onAction } from "../../renderer.js";
 import { render, release } from "../../scripts/settings.js";
-import { getSettingsCache } from "../cache/storage.js";
+import { safeUnfoldCache } from "../cache/storage.js";
 
 createGlobal('settingsPageActive', false);
 
@@ -94,14 +94,10 @@ async function init() {
         render();
         {
           /**
-           * retrieves the settings from the cache
-           */
-          let cache = getSettingsCache().settings;
-          /**
            * if the autoCollapseActive setting is true,
            * collapses all the categories on the settings page
            */
-          if (cache.autoCollapseActive) {
+          if (safeUnfoldCache("settings.autoCollapseActive") === true) {
             hideCategories();
           }
         }
