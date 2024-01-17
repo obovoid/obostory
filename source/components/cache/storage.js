@@ -12,13 +12,35 @@ import { app, sendAction } from '../../renderer.js'
 let cache;
 
 function saveAppCache(app_cache) {
-    ensureType(app_cache, 'object');
+    if (app_cache !== undefined) {
+      ensureType(app_cache, 'object');
+    } else {
+      app_cache = {};
+    }
+
     cache = app_cache;
     return sendAction('ready.cache');
 }
 
 function getSettingsCache() {
     return cache;
+}
+
+/**
+ * Unfolds a nested object in the cache.
+ * @param {string} pathToUnfold - The path to the nested object, represented as a dot-separated string.
+ * @returns {any} The unfolded object.
+ */
+function safeUnfoldCache(pathToUnfold) {
+  ensureType(pathToUnfold, 'string');
+
+  const keys = pathToUnfold.split('.');
+  if (keys.length <= 1) {
+    throw new Error(`Unfolding not possible! The given path split is smaller or equals to 1. Paths are seperated by dots. "${pathToUnfold}" does not meet that standard.`)
+  }
+
+  const reduced = keys.reduce((acc, key) => (acc && acc[key] !== 'undefined') ? acc[key] : undefined, cache);
+  return reduced || null
 }
 
 function getObjectProperty(obj, keys) {
@@ -100,11 +122,12 @@ function storeKey(key, value) {
     try {
         updateSettingsCache(key, value);
     } catch (e) {
-        console.warn('automatic updating from settings cache has failed. This happens if the value was not existant beforehand.');
+        console.warn('automatic updating from settings cache has failed. This happens if the value was not existant beforehand. Restarting the Application will fix this issue.');
+        window.API.requestRestart({once: true});
     }
     app(() => {
         window.API.setStorageKey(key, value);
     });
 }
 
-export { saveAppCache, getSettingsCache, updateSettingsCache, storeKey }
+export { saveAppCache, getSettingsCache, safeUnfoldCache, updateSettingsCache, storeKey }
