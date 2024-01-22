@@ -24,4 +24,7 @@ export const de_DE = {
     "ipc.requestRestart.onlyOnce": "Dies ist das einzige mal, dass du die App für diese spezifische Einstellung neu starten musst.",
     "ipc.requestRestart.agree": "Jetzt neu starten",
     "ipc.requestRestart.disagree": "Jetzt nicht neu starten",
+    "playground.activity.profile": "Profile",
+    "playground.activity.timeline": "Zeitleiste",    
+    "playground.activity.save": "Projekt speichern",
 }

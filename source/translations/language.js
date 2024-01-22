@@ -24,7 +24,14 @@ const language = {
 onGlobalReady(() => {
     document.querySelectorAll('[data-translate]').forEach(el => {
         const translation_id = el.dataset.translate
-        el.innerText = global.translate(translation_id) || `translation missing {${translation_id}}`
+        switch (el.tagName) {
+            case 'INPUT':
+                el.value = global.translate(translation_id) || `translation missing {${translation_id}}`
+                break;
+            default: 
+                el.innerText = global.translate(translation_id) || `translation missing {${translation_id}}`
+                break;
+        }
     });
 
     const languageSelection = new Setting('selection');

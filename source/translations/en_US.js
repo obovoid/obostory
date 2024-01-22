@@ -24,4 +24,7 @@ export const en_US = {
     "ipc.requestRestart.onlyOnce": "This is the only time you need to restart the app for this specific Setting to work fully!",
     "ipc.requestRestart.agree": "Restart now",
     "ipc.requestRestart.disagree": "Don't restart now",
+    "playground.activity.profile": "Profiles",
+    "playground.activity.timeline": "Timelines",
+    "playground.activity.save": "Save project",
 }
