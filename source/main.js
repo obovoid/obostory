@@ -177,7 +177,11 @@ async function showPathSelectionQuestionDialog() {
 }
 
 // Create Window on app startup
-app.whenReady().then(() => {
+app.whenReady()
+.catch(error => {
+    console.error(error);
+    app.quit();
+}).then(() => {
     WINDOW();
 
     // Support for MAC-OS

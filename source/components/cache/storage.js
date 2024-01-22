@@ -120,6 +120,7 @@ function updateSettingsCache(updater, value) {
 function storeKey(key, value) {
     ensureType(key, 'string');
     try {
+        // deepcode ignore MissingArgument: False positive
         updateSettingsCache(key, value);
     } catch (e) {
         console.warn('automatic updating from settings cache has failed. This happens if the value was not existant beforehand. Restarting the Application will fix this issue.');

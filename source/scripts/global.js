@@ -40,7 +40,7 @@ global.areSettingsActive = () => {
 }
 
 global.translate = (translation_id) => {
-    let default_language = safeUnfoldCache("general.language") || navigator.language.replace('-', '_');
+    let default_language = safeUnfoldCache("general.language") || navigator.language.replaceAll('-', '_');
     if (!language[default_language]) {
         default_language = 'en_US'
     }

@@ -74,12 +74,24 @@ document.querySelectorAll('[data-command="settings"]').forEach(el => {
     el.addEventListener('click', openSettings);
 });
 
+document.querySelectorAll('[data-command="create"]').forEach(el => {
+    el.addEventListener('click', () => {
+        return loadNewPage('container-playground');
+    });
+});
+
 function loadNewPage(page) {
     $(`.${currentPage}`).fadeOut(150);
     if (page == 'container-settings') return openSettings();
 
     $(`.${page}`).fadeIn(150);
+    $(`.${page}`).animate({ opacity: 1}, 150);
     currentPage = setGlobal('activePage', page);
+    sendAction(`page.changed.to.${page}`);
+}
+
+function getActivePage() {
+    return getGlobal('activePage');
 }
 
 document.querySelectorAll('[data-href]').forEach(el => {
@@ -116,4 +128,6 @@ document.querySelectorAll('[data-modalInfo').forEach(el => {
     })
 });
 
-export { loadNewPage, onAction, sendAction, app }
+document.addEventListener('DOMContentLoaded', loadNewPage(currentPage));
+
+export { loadNewPage, onAction, sendAction, app, getActivePage}
