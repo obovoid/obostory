@@ -46,7 +46,7 @@
     "@types/webpack": "^5.28.5",
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^8.1.0",
-    "fs": "^0.0.1-security",
+    "fs": "^0.0.2",
     "jquery": "^3.7.1",
     "path": "^0.12.7",
     "webpack": "^5.90.1"
