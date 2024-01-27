@@ -1,17 +1,9 @@
-:root {
-    --default-background-color: #494D5F;
-    --font-color: #FFFFFF;
-    --cadet-color: #8AA2A9;
-    --accent-color: #FF101F;
-    --main-color: #F6C0D0;
-    --secondary-color: #F7BFB4;
-}
-
 /* 
+    Copyright (c) 2024, Obovoid
+    All rights reserved.
 
- - profiles / Steckbriefe
- - timeline / Zeitleiste
-
+    This source code is licensed under the GPL-3.0-style license found in the
+    LICENSE file in the root directory of this source tree.
 */
 
 .container-playground {
@@ -27,7 +19,8 @@
     position: absolute;
     left: 0;
     top: 0;
-    width: 32rem;
+    width: auto;
+    white-space: nowrap;
     height: 4rem;
     background-color: var(--main-color);
     border-radius: 0px 0px 1rem 0px;

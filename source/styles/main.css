@@ -1,24 +1,19 @@
 /* 
-    Copyright (c) 2023, Obovoid
+    Copyright (c) 2024, Obovoid
     All rights reserved.
 
     This source code is licensed under the GPL-3.0-style license found in the
     LICENSE file in the root directory of this source tree.
 */
 
-:root {
-    --default-background: #212529;
-    --default-background-color: #494D5F;
-    --black: #0a0a0a;
-    --light-black: #303030;
-    --grey: #ccc;
-    --white: #FFFFFF;
-    --attention-color: #ce0909;
-    --modal-background: #FFFFFF;
+* {
+    /* To override default legacy min-width values */
+    min-width: 0px;
 }
 
 body {
     background-color: var(--default-background-color);
+    overflow: hidden;
 }
 
 @font-face {
@@ -31,9 +26,6 @@ body {
     src: url(./fonts/Aamiya-Thin.otf);
 }
 
-body {
-    overflow: hidden;
-}
 
 .container-startup {
     opacity: 0;
@@ -88,6 +80,7 @@ body {
     border: 1px solid black;
     border-radius: 5px;
     overflow-y: scroll;
+    background-color: var(--default-background);
 }
 
 ::-webkit-scrollbar {
@@ -109,6 +102,7 @@ body {
 
 div .glyphicon {
     font-size: 6vw;
+    color: var(--white)
 }
 
 .project-title {
@@ -128,6 +122,7 @@ div .glyphicon {
     text-wrap: nowrap;
     line-height: 2vw;
     left: 0.5vw;
+    color: var(--white)
 }
 
 .hint {
@@ -139,7 +134,7 @@ div .glyphicon {
     font-size: 1.5vw;
     font-family: Aamiya-regular;
     letter-spacing: 0.2vw;
-    background: var(--default-background);
+    background: var(--default-background-color);
     border-radius: 1vw;
     translate: -50% -50%;
     opacity: 0;
@@ -156,7 +151,7 @@ div .glyphicon {
     min-height: 2vw;
     top: 1vw;
     left: 50%;
-    background: var(--default-background);
+    background: var(--alternative-main-color);
     border-radius: 8px;
     margin: 0.1vw 0.5vw;
     padding: 1vw;
@@ -170,7 +165,7 @@ div .glyphicon {
     border-radius: 0.5vw;
     top: 1.2vw;
     left: 50%;
-    background: var(--black);
+    background: var(--main-color);
     translate: -50% 0%;
     user-select: none;
     margin-bottom: 0.1vw;
@@ -202,7 +197,7 @@ div .glyphicon {
     font-family: Aamiya-regular;
     font-size: 1vw;
     font-weight: bold;
-    color: var(--white);
+    color: var(--light-black);
     top: 50%;
     letter-spacing: 0.1vw;
     translate: 1% -50%;
@@ -232,7 +227,7 @@ div .glyphicon {
 
 .settings-title-text {
     font-family: Aamiya-regular;
-    color: var(--white);
+    color: var(--light-black);
     font-size: 1.2vw;
     font-weight: 400;
     letter-spacing: 0.2vw;
@@ -242,7 +237,7 @@ div .glyphicon {
 
 .settings-descriptions-text {
     font-family: Aamiya-thin;
-    color: var(--white);
+    color: var(--light-black);
     font-size: 1vw;
     font-weight: bold;
     letter-spacing: 0.1vw;
@@ -369,6 +364,37 @@ option {
     font-family: Aamiya-regular;
     font-weight: bold;
     font-size: 0.8vw;
-    color: var(--attention-color);
+    color: var(--accent-color);
     letter-spacing: 0.1vw;
+}
+
+.settings-searchbar {
+    position: relative;
+    margin-left: 1vw;
+    margin-top: 0.2vw;
+    width: 50vw;
+    background: linear-gradient(to right, transparent, var(--default-background));
+    caret-color: var(--white);
+    color: var(--white);
+    font-family: Aamiya-regular;
+    font-weight: bold;
+    letter-spacing: 0.05vw;
+
+    outline: none;
+    background: linear-gradient(var(--default-background), var(--default-background)), linear-gradient(to right, rgba(255, 255, 255, 0.24), transparent);
+    background-origin: padding-box, border-box;
+    background-repeat: no-repeat;
+    border: 1px solid transparent;
+}
+
+.settings-searchbar:hover {
+    cursor: text;
+}
+
+.settings-searchbar:focus {
+    outline: none;
+}
+
+.hidden {
+    display: none;
 }
