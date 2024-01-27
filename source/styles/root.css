@@ -1,0 +1,23 @@
+/* 
+    Copyright (c) 2024, Obovoid
+    All rights reserved.
+
+    This source code is licensed under the GPL-3.0-style license found in the
+    LICENSE file in the root directory of this source tree.
+*/
+
+:root {
+    --default-background: #212529;
+    --default-background-color: #494D5F;
+    --black: #0a0a0a;
+    --light-black: #303030;
+    --grey: #ccc;
+    --white: #FFFFFF;
+    --modal-background: #FFFFFF;
+    --font-color: #FFFFFF;
+    --cadet-color: #8AA2A9;
+    --accent-color: #FF101F;
+    --main-color: #F6C0D0;
+    --alternative-main-color: #FADBE4;
+    --secondary-color: #F7BFB4;
+}

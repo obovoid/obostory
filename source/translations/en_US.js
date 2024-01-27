@@ -19,6 +19,11 @@ export const en_US = {
     "settings.general.language.title": "Language",
     "settings.general.language.description": "Set the language in which the app is displayed. If your language is not yet represented, you can of course help translate the app into more languages on Github. Visit at any time https://github.com/obovoid/obostory",
     "settings.general.restartRequired": "A restart of the app is required for the function to work fully!",
+    "settings.searchbar.placeholders": [
+        "e.g. Language",
+        "e.g. Collapse the categories",
+        "e.g. Window size"
+    ],
     "ipc.requestRestart.title": "Restart the app",
     "ipc.requestRestart.message": "The Setting you updated requires a restart of the app. Do you want to restart now? All unsaved changes will be lost!",
     "ipc.requestRestart.onlyOnce": "This is the only time you need to restart the app for this specific Setting to work fully!",
