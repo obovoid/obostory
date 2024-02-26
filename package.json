@@ -1,39 +1,51 @@
 {
   "name": "obostory",
+  "productName": "obostory",
   "version": "1.0.0",
-  "description": "Create a key point based story, with timelines, profiles, character Inventory Planning and much more",
-  "main": "./source/main.js",
+  "description": "My Electron application description",
+  "main": ".webpack/main",
   "scripts": {
-    "start": "electron ."
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "eslint --ext .ts,.tsx ."
   },
-  "repository": {
-    "type": "git",
-    "url": "obostory"
+  "keywords": [],
+  "author": {
+    "name": "obovoid",
+    "email": "git.obovoid@gmail.com"
   },
-  "keywords": [
-    "story",
-    "profiles",
-    "characters",
-    "create"
-  ],
-  "build": {
-    "fileAssociations": [
-      {
-        "ext": "osp",
-        "name": "Obostory Project File",
-        "role": "editor",
-        "perMachine": true
-      }
-    ]
-  },
-  "author": "obovoid",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "devDependencies": {
-    "electron": "^28.0.0",
-    "eslint": "^8.56.0"
+    "@electron-forge/cli": "^7.2.0",
+    "@electron-forge/maker-deb": "^7.2.0",
+    "@electron-forge/maker-rpm": "^7.2.0",
+    "@electron-forge/maker-squirrel": "^7.2.0",
+    "@electron-forge/maker-zip": "^7.2.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.2.0",
+    "@electron-forge/plugin-webpack": "^7.2.0",
+    "@types/jquery": "^3.5.29",
+    "@types/node": "^20.11.19",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "@vercel/webpack-asset-relocator-loader": "^1.7.3",
+    "css-loader": "^6.10.0",
+    "electron": "28.2.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-import": "^2.29.1",
+    "fork-ts-checker-webpack-plugin": "^7.3.0",
+    "node-loader": "^2.0.0",
+    "style-loader": "^3.3.4",
+    "svg-url-loader": "^8.0.0",
+    "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2",
+    "typescript": "~4.5.4"
   },
   "dependencies": {
+    "@types/webpack": "^5.28.5",
+    "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^8.1.0",
-    "fs": "^0.0.2"
+    "fs": "^0.0.1-security"
   }
 }
