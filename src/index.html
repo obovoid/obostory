@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title data-translate="window.title"></title>
+    </head>
+    <body>
+
+        <!-- Modal startup -->
+        <div class="container-startup">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class="bi bi-info-square-fill" data-modalInfo
+                viewBox="0 0 16 16">
+                <path
+                    d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.93 4.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-github"
+                data-modalGithub viewBox="0 0 16 16">
+                <path
+                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8" />
+            </svg>
+            <div class="project-loader">
+                <span class="project-title"
+                    data-translate="renderer.modal.header"></span>
+                <div class="break"></div>
+                <div class="btn btn-info actionContainer" data-toggle="tooltip"
+                    data-command="load">
+                    <span class="glyphicon glyphicon-time"></span>
+                    <div class="hint"
+                        data-translate="hints.modal.recent.projects"></div>
+                </div>
+                <div class="btn btn-primary actionContainer"
+                    data-toggle="tooltip" data-command="create">
+                    <span class="glyphicon glyphicon-file"></span>
+                    <div class="hint"
+                        data-translate="hints.modal.create.project"></div>
+                </div>
+                <div class="btn btn-primary actionContainer"
+                    data-toggle="tooltip" data-href="container-settings">
+                    <span class="glyphicon glyphicon-cog"></span>
+                    <div class="hint"
+                        data-translate="hints.modal.settings"></div>
+                </div>
+                <div class="btn btn-danger actionContainer"
+                    data-toggle="tooltip" data-command="quit">
+                    <span class="glyphicon glyphicon-log-out"></span>
+                    <div class="hint"
+                        data-translate="hints.close.application"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Settings page -->
+        <div class="container-settings">
+            <div class="settings-loader">
+                <div class="textarea">
+                    <span class="glyphicon glyphicon-cog" data-glyphiconpage
+                        data-identify="settings"
+                        data-href="container-startup"></span>
+                    <div class="settings-title"
+                        data-translate="settings.header"></div>
+                    <input type="text" class="settings-searchbar"
+                        placeholder="loading.."
+                        data-placeholderlist="settings.searchbar.placeholders">
+                </div>
+                <div class="category"
+                    data-collapse='[data-settings-category="general"]'>
+                    <p class="category-title"
+                        data-translate="settings.categories.general"></p>
+                    <span
+                        class="glyphicon glyphicon-chevron-up glyph-category"
+                        data-glyphtoggle="glyphicon glyphicon-chevron-down glyph-category"></span>
+                </div>
+                <div data-settings-category="general"></div>
+                <div class="category"
+                    data-collapse="[data-settings-category='timeline']">
+                    <p class="category-title"
+                        data-translate="settings.categories.timeline"></p>
+                    <span
+                        class="glyphicon glyphicon-chevron-up glyph-category"
+                        data-glyphtoggle="glyphicon glyphicon-chevron-down glyph-category"></span>
+                </div>
+                <div data-settings-category="timeline"></div>
+                <div class="category"
+                    data-collapse="[data-settings-category='profiles']">
+                    <p class="category-title"
+                        data-translate="settings.categories.profiles"></p>
+                    <span
+                        class="glyphicon glyphicon-chevron-up glyph-category"
+                        data-glyphtoggle="glyphicon glyphicon-chevron-down glyph-category"></span>
+                </div>
+                <div data-settings-category="profiles"></div>
+                <div class="category"
+                    data-collapse="[data-settings-category='fonts']">
+                    <p class="category-title"
+                        data-translate="settings.categories.fonts"></p>
+                    <span
+                        class="glyphicon glyphicon-chevron-up glyph-category"
+                        data-glyphtoggle="glyphicon glyphicon-chevron-down glyph-category"></span>
+                </div>
+                <div data-settings-category="fonts"></div>
+            </div>
+        </div>
+
+        <!-- Playground -->
+        <div class="container-playground">
+            <div class="activity-swapper">
+                <div class="centerX">
+                    <div class="btn-group btn-group-toggle"
+                        data-toggle="buttons">
+                        <label
+                            class="btn btn-secondary active regular-font"
+                            data-translate="playground.activity.profile"
+                            data-activityButton
+                            data-identity="profiles">
+                            <input type="radio" name="options" id="profiles"
+                                autocomplete="off">
+                        </label>
+                        <label
+                            class="btn btn-secondary regular-font"
+                            data-translate="playground.activity.timeline"
+                            data-activityButton
+                            data-identity="timeline">
+                            <input type="radio" name="options" id="timeline"
+                                autocomplete="off">
+                        </label>
+                        <label
+                            class="btn btn-secondary regular-font"
+                            data-translate="playground.activity.save"
+                            data-activityButton
+                            data-identity="save">
+                            <input type="radio" name="options" id="save"
+                                autocomplete="off">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="project-name">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="projectName"
+                        aria-describedby="projectName" value="Unnamed Project 1"
+                        maxlength="23" spellcheck="false">
+                </div>
+            </div>
+            <div class="profiles">
+                <div class="paperbody">
+                    <div 
+                        data-translate="playground.profile.title"
+                        class="papertitle">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

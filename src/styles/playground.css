@@ -1,0 +1,113 @@
+
+/* 
+    Copyright (c) 2024, Obovoid
+    All rights reserved.
+
+    This source code is licensed under the GPL-3.0-style license found in the
+    LICENSE file in the root directory of this source tree.
+*/
+
+.container-playground {
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    position: absolute;
+    background-color: var(--default-background-color);
+}
+
+.activity-swapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: auto;
+    white-space: nowrap;
+    height: 4rem;
+    background-color: var(--main-color);
+    border-radius: 0px 0px 1rem 0px;
+    border: 2px solid var(--secondary-color);
+    z-index: 100;
+}
+
+.glyphs-playground {
+    font-size: 3rem !important;
+    line-height: 3.5rem;
+}
+
+.regular-font {
+    font-family: Aamiya-regular;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    text-align: center;
+}
+
+.centerX {
+    display: grid;
+    place-items: center;
+}
+
+.project-name {
+    position: fixed;
+    left: 0;
+    top: 4rem;
+    width: 18rem;
+    height: 3.5rem;
+    z-index: 100;
+}
+
+.form-control {
+    background-color: var(--secondary-color) !important;
+    border: none;
+    border-radius: 0 0 1rem 0;
+    font-family: Aamiya-regular;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+}
+
+.form-control input:invalid {
+    border: 2px solid var(--accent-color) !important;
+}
+
+.project-name ::selection {
+    background: var(--accent-color);
+    color: var(--font-color);
+    padding: 1rem;
+}
+
+.profiles {
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+}
+
+.paperbody {
+    position: relative;
+    margin-top: 7rem;
+    width: 95rem;
+    height: 100%;
+    background-image: url(./icons/lines.png) ,url(./icons/paper.png);
+    background-repeat: repeat-y, repeat;
+    border-radius: 1rem;
+}
+
+.papertitle {
+    position: relative;
+    font-family: Courier, monospace;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    font-size: 2rem;
+    margin: 1rem 15rem;
+}
+
+.svgPersonLinesFill {
+    display: inline-block;
+    line-height: 2rem;
+    padding-left: 3rem;
+    background: url('./icons/person-lines-fill.svg') no-repeat scroll 1rem 0.75rem transparent !important;
+}
