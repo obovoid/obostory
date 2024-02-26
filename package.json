@@ -1,7 +1,7 @@
 {
   "name": "obostory",
   "productName": "obostory",
-  "version": "1.5.0",
+  "version": "0.1.6",
   "description": "Create a key point based story, with timelines, profiles, character Inventory Planning and much more",
   "main": ".webpack/main",
   "scripts": {
