@@ -91,7 +91,6 @@ function saveWindowPosition(pos: number[]): void {
  */
 function getWindowPosition(): number[] | null {
   const position = processStorage.get("windowPosition");
-  console.log(position)
 
   if (Storage.get("app.settings.storeWindowPosition") == false) {
     return null;
