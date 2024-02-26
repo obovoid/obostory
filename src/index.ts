@@ -379,7 +379,7 @@ ipcMain.on("showAppInfo", () => {
   const messageBoxOptions: MessageBoxOptions = {
     type: "info",
     title: "App Informations Obostory",
-    message: `Programmed by Obovoid\nVersion: WIP 0.1.6\nNode: ${process.versions.node}\nElectron: ${process.versions.electron}\nChromium: ${process.versions.chrome}`,
+    message: `Programmed by Obovoid\nVersion: WIP 0.1.6 \nNode: ${process.versions.node}\nElectron: ${process.versions.electron}\nChromium: ${process.versions.chrome}`,
   };
   dialog.showMessageBoxSync(messageBoxOptions);
   return true;
