@@ -45,3 +45,8 @@ declare interface SettingsElements {
   title: string;
   category: string;
 }
+
+declare interface ParsedData {
+  name: string | null;
+  args: any[] | null;
+}
